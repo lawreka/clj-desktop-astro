@@ -19,11 +19,10 @@
 (def planet-symbols [sun-symbol merc-symbol venus-symbol moon-symbol mars-symbol jupiter-symbol saturn-symbol neptune-symbol uranus-symbol pluto-symbol])
 (def planet-keys [:Sun :Mercury :Venus :Moon :Mars :Jupiter :Saturn :Neptune :Uranus :Pluto])
 (def planet-names ["Sun " "Mercury " "Venus " "Moon " "Mars " "Jupiter " "Saturn " "Neptune " "Uranus " "Pluto "])
-(def planet-legend-locs [20 40 60 80 100])
+(def planet-legend-locs [20 40 60 80 100 120 140 160 180 200])
 (def planet-map (zipmap planet-keys planet-symbols))
 (def planet-legend-map (zipmap planet-keys planet-names))
-(def planet-legend-left-map (zipmap (take 5 planet-keys) planet-legend-locs))
-(def planet-legend-right-map (zipmap (take-last 5 planet-keys) planet-legend-locs))
+(def planet-legend-locs-map (zipmap planet-keys planet-legend-locs))
 
 (def symbol-size 30)
 (def symbol-spacing 15)
@@ -40,10 +39,7 @@
         radius (* canvas-boundary 0.30)
         text-radius (* canvas-boundary 0.33)]
     (doseq [planet (keys planet-map)]
-      (c2d/image canvas (get planet-map planet) (- (trig/on-circle-at-x center radius (get-planet-location planet)) symbol-spacing) (- (trig/on-circle-at-y center radius (get-planet-location planet)) symbol-spacing) symbol-size symbol-size))
-    (doseq [planet (keys planet-legend-left-map)]
-      (c2d/text canvas (str (get planet-legend-map planet) (chart/lon-to-sign (get-planet-location planet))) 20 (get planet-legend-left-map planet) :left))
-    (doseq [planet (keys planet-legend-right-map)]
-      (c2d/text canvas (str (get planet-legend-map planet) (chart/lon-to-sign (get-planet-location planet))) (- canvas-width 20) (get planet-legend-right-map planet) :right))
+      (c2d/image canvas (get planet-map planet) (- (trig/on-circle-at-x center radius (get-planet-location planet)) symbol-spacing) (- (trig/on-circle-at-y center radius (get-planet-location planet)) symbol-spacing) symbol-size symbol-size)
+      (c2d/text canvas (str (get planet-legend-map planet) (chart/lon-to-sign (get-planet-location planet))) (- canvas-width 20) (get planet-legend-locs-map planet) :right))
   canvas))
   
