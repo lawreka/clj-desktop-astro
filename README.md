@@ -2,6 +2,8 @@
 
 <img src='resources/screenshot.png' />
 
+Fun project to learn Clojure don't be mean if it's not very good (･_･、)
+
 ## Required
 
 [Leiningen](https://leiningen.org/)
